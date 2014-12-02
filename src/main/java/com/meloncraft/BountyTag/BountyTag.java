@@ -59,9 +59,9 @@ public final class BountyTag extends JavaPlugin {
                     }
                 }
             }
-            this.getLogger().info(p.player.getName() + " " + value);
+            //this.getLogger().info(p.player.getName() + " " + value);
             p.setValue(value);
-            //TagAPI.refreshPlayer(p.player);
+            TagAPI.refreshPlayer(p.player);
         }
     }
     

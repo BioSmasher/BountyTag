@@ -28,7 +28,7 @@ public class RecalculateTask extends BukkitRunnable{
     
     public void run() {
         
-        plugin.getLogger().info("Recalculating Bounties");
+        //plugin.getLogger().info("Recalculating Bounties");
         plugin.recalculate();
     }
 }

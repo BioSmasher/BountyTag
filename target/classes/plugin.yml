@@ -1,0 +1,9 @@
+name: BountyTag
+main: com.meloncraft.BountyTag.BountyTag
+version: 1.0
+commands:
+   retag:
+      description: recalculates the value of all players
+      usage: /l
+      permission: 
+      permission-message: Test permission message

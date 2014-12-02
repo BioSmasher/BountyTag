@@ -55,7 +55,7 @@ public class Listeners implements Listener{
         }
         if (playerValue != null) {
             //if (playerValue.player.getName().length() <= 10) {
-                event.setTag("" + ChatColor.GREEN + API.getLevel(playerValue.player.getName()) + " " + ChatColor.WHITE + playerValue.player.getName() + ChatColor.RESET + ChatColor.GOLD + " $" + playerValue.getValue());
+                event.setTag("" + /* + ChatColor.GREEN + API.getLevel(playerValue.player.getName()) + */ChatColor.GOLD + "$" + playerValue.getValue() + " " + ChatColor.WHITE + playerValue.player.getName() );
             //}
             //else {
                 //event.setTag("" + ChatColor.GREEN + API.getLevel(playerValue.player.getName()) + " " + ChatColor.WHITE + playerValue.player.getName().substring(0, 10) + ChatColor.GOLD + " $" + playerValue.getValue());
