@@ -1,0 +1,49 @@
+#BountyTag Config
+#Enter the values of the items you wish to define values for in the form of "ITEMID: VALUE"
+delay: 100
+
+#Cobble
+4: 2.5
+#Coal
+263: 15
+#Iron Ore
+15: 38
+#Diamond
+264: 550
+#Gold 
+14: 250
+#Gold Ingot
+266: 310
+#Iron Ingot
+265: 70
+#Stone
+1: 8.75
+#Log
+17: 16
+#Plank
+5: 5
+#Obsidian
+49: 3000
+#Emerald
+388: 1275
+#Fish
+349: 350
+#Stone Pickaxe
+274: 7.5
+#Iron Pickaxe
+257: 210
+#Diamond Pickaxe
+278: 1650
+#Gold Pickaxe
+285: 930
+#Wood Pickaxe
+270: 15
+
+#Wood Sword
+268: 100
+#Stone Sword
+272: 1000
+#Iron Sword
+267: 5000
+#Diamond Sword
+276: 10000
