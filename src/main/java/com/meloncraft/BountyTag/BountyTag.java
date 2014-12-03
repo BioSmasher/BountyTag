@@ -15,6 +15,8 @@ SOFTWARE.
 package com.meloncraft.BountyTag;
 
 import java.util.ArrayList;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -36,7 +38,7 @@ public final class BountyTag extends JavaPlugin {
         for (Player p : this.getServer().getOnlinePlayers()) {
             players.add(new PlayerValue(p, 0));
         }
-        BukkitTask recalculate = new RecalculateTask(this).runTaskTimer(this, 40, this.getConfig().getInt("delay"));
+        BukkitTask recalculate = new RecalculateTask(this).runTaskTimer(this, 60, this.getConfig().getInt("delay"));
     }
     
     @Override
@@ -62,6 +64,18 @@ public final class BountyTag extends JavaPlugin {
             //this.getLogger().info(p.player.getName() + " " + value);
             p.setValue(value);
             TagAPI.refreshPlayer(p.player);
+            
+            if (this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.STONE
+                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.COAL_ORE
+                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.IRON_ORE
+                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.DIRT
+                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.GOLD_ORE
+                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.DIAMOND_ORE
+                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.EMERALD_ORE
+                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.OBSIDIAN) {
+                p.player.teleport(new Location(this.getServer().getWorld("world"), -54.5, 55, 28.5));
+                this.getLogger().info("Teleported " + p.player.getName() + " to Spawn. Unstucked! " + this.getServer().getWorld("world").getBlockAt(p.player.getLocation()));
+            }
         }
     }
     

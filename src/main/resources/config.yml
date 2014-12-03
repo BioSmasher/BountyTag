@@ -1,6 +1,6 @@
 #BountyTag Config
 #Enter the values of the items you wish to define values for in the form of "ITEMID: VALUE"
-delay: 100
+delay: 250
 
 #Cobble
 4: 2.5
