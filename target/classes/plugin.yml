@@ -7,3 +7,8 @@ commands:
       usage: /l
       permission: 
       permission-message: Test permission message
+   bounty:
+      description: Check the value of your inventory
+      usage: /bounty
+      permission: 
+      permission-message: You don't have permission to use /bounty!

@@ -2,6 +2,9 @@
 #Enter the values of the items you wish to define values for in the form of "ITEMID: VALUE"
 delay: 250
 
+#Format of the numbers:
+format: "#0"
+
 #Cobble
 4: 2.5
 #Coal

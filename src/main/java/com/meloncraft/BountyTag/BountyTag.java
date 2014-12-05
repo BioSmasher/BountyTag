@@ -14,7 +14,9 @@ SOFTWARE.
 
 package com.meloncraft.BountyTag;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -28,7 +30,7 @@ import org.kitteh.tag.TagAPI;
 
 public final class BountyTag extends JavaPlugin {
     public ArrayList<PlayerValue> players;
-     
+    DecimalFormat format;
     @Override
     public void onEnable() {
         players = new ArrayList<PlayerValue>();
@@ -38,6 +40,7 @@ public final class BountyTag extends JavaPlugin {
         for (Player p : this.getServer().getOnlinePlayers()) {
             players.add(new PlayerValue(p, 0));
         }
+        format = new DecimalFormat("0");
         BukkitTask recalculate = new RecalculateTask(this).runTaskTimer(this, 60, this.getConfig().getInt("delay"));
     }
     
@@ -100,6 +103,17 @@ public final class BountyTag extends JavaPlugin {
                     p.setValue(value);
                 }
             }
+        }
+        if (cmd.getName().equalsIgnoreCase("bounty")) {
+            if (sender instanceof Player) {
+                for (PlayerValue p : players) {
+                    if (p.equals(sender.getName())) {
+                        p.player.sendMessage(ChatColor.DARK_RED + "Your Inventory Value is " + ChatColor.GOLD + "$" + format.format(p.value));
+                        break;
+                    }
+                }
+            }
+
         }
         return false;
     }

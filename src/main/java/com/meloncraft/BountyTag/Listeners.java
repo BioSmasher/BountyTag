@@ -32,7 +32,7 @@ public class Listeners implements Listener{
     public Listeners(BountyTag plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.plugin = plugin;
-        format = new DecimalFormat("0.0");
+        format = new DecimalFormat(plugin.getConfig().getString("format"));
     }
     
     @EventHandler
@@ -62,8 +62,8 @@ public class Listeners implements Listener{
         }
         if (playerValue != null) {
             //if (playerValue.player.getName().length() <= 10) {
-            if (playerValue.value < 100) event.setTag("" + /* + ChatColor.GREEN + API.getLevel(playerValue.player.getName()) + */ChatColor.GOLD + "$0 " + ChatColor.WHITE + playerValue.player.getName() );
-            else event.setTag("" + /* + ChatColor.GREEN + API.getLevel(playerValue.player.getName()) + */ChatColor.GOLD + "$" + format.format(playerValue.getValue() / 1000.0) + "k " + ChatColor.WHITE + playerValue.player.getName() );
+            if (playerValue.value < 500) event.setTag("" + /* + ChatColor.GREEN + API.getLevel(playerValue.player.getName()) + */ChatColor.GOLD + "1k " + ChatColor.WHITE + playerValue.player.getName() );
+            else event.setTag("" + /* + ChatColor.GREEN + API.getLevel(playerValue.player.getName()) + */ChatColor.GOLD + "" + format.format(playerValue.getValue() / 1000.0) + "k " + ChatColor.WHITE + playerValue.player.getName() );
             //}
             //else {
             //event.setTag("" + ChatColor.GREEN + API.getLevel(playerValue.player.getName()) + " " + ChatColor.WHITE + playerValue.player.getName().substring(0, 10) + ChatColor.GOLD + " $" + playerValue.getValue());
