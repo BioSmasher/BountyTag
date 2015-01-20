@@ -41,7 +41,8 @@ public final class BountyTag extends JavaPlugin {
             players.add(new PlayerValue(p, 0));
         }
         format = new DecimalFormat("0");
-        BukkitTask recalculate = new RecalculateTask(this).runTaskTimer(this, 60, this.getConfig().getInt("delay"));
+        BukkitTask recalculate1 = new RecalculateTask(this, 0).runTaskTimer(this, 60, this.getConfig().getInt("delay"));
+        BukkitTask recalculate2 = new RecalculateTask(this, 1).runTaskTimer(this, 60 + (this.getConfig().getInt("delay") / 2), this.getConfig().getInt("delay"));
     }
     
     @Override
@@ -49,36 +50,48 @@ public final class BountyTag extends JavaPlugin {
         
     }
     
-    public void recalculate() {
+    public void recalculate(int half) {
+        int index = 0;
         for (PlayerValue p : players) {
-            PlayerInventory inv = p.player.getInventory();
-            double value = 0;
-            for (int i = 0; i < 36; i++) {
-                ItemStack stack = inv.getItem(i);
-                if (stack != null) {
-                    try {
-                        value += stack.getAmount() * this.getConfig().getDouble("" + stack.getTypeId());
-                    }
-                    catch (Exception e) {
-                        
+            
+            if ((half == 0 && index <= this.getServer().getOnlinePlayers().size() / 2) || (half != 0 && index > this.getServer().getOnlinePlayers().size() / 2)) {
+                PlayerInventory inv = p.player.getInventory();
+                double value = 0;
+                for (int i = 0; i < 36; i++) {
+                    ItemStack stack = inv.getItem(i);
+                    if (stack != null) {
+                        try {
+                            value += stack.getAmount() * this.getConfig().getDouble("" + stack.getTypeId());
+                        }
+                        catch (Exception e) {
+                            
+                        }
                     }
                 }
+                //this.getLogger().info(p.player.getName() + " " + value);
+                p.setValue(value);
+                TagAPI.refreshPlayer(p.player);
+                
+                if (this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.STONE
+                        || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.COAL_ORE
+                        || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.IRON_ORE
+                        || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.DIRT
+                        || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.GOLD_ORE
+                        || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.DIAMOND_ORE
+                        || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.EMERALD_ORE
+                        || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.OBSIDIAN) {
+                    p.player.teleport(new Location(this.getServer().getWorld("world"), -54.5, 55, 28.5));
+                    this.getLogger().info("Teleported " + p.player.getName() + " to Spawn. Unstucked! " + this.getServer().getWorld("world").getBlockAt(p.player.getLocation()));
+                }
             }
-            //this.getLogger().info(p.player.getName() + " " + value);
-            p.setValue(value);
-            TagAPI.refreshPlayer(p.player);
-            
-            if (this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.STONE
-                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.COAL_ORE
-                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.IRON_ORE
-                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.DIRT
-                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.GOLD_ORE
-                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.DIAMOND_ORE
-                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.EMERALD_ORE
-                    || this.getServer().getWorld("world").getBlockAt(p.player.getLocation()).getType() == Material.OBSIDIAN) {
-                p.player.teleport(new Location(this.getServer().getWorld("world"), -54.5, 55, 28.5));
-                this.getLogger().info("Teleported " + p.player.getName() + " to Spawn. Unstucked! " + this.getServer().getWorld("world").getBlockAt(p.player.getLocation()));
-            }
+            index++;
+        }
+    }
+    
+    
+    public void check() {
+        if (players.size() != this.getServer().getOnlinePlayers().size()){
+            this.getLogger().severe("LIST SIZE INFORRECT. " + players.size() + "in list and " + this.getServer().getOnlinePlayers().size() + " players online.");
         }
     }
     

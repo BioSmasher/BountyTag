@@ -21,14 +21,17 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class RecalculateTask extends BukkitRunnable{
     BountyTag plugin;
+    int half;
     
-    public RecalculateTask(BountyTag plug) {
+    public RecalculateTask(BountyTag plug, int half) {
         plugin = plug;
+        this.half = half;
     }
     
     public void run() {
         
         //plugin.getLogger().info("Recalculating Bounties");
-        plugin.recalculate();
+        plugin.recalculate(half);
+        plugin.check();
     }
 }
